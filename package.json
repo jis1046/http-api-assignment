@@ -1,0 +1,13 @@
+{
+  "name": "http-api-assignment",
+  "version": "1.0.0",
+  "description": "Use node.js to build a simple HTTP API",
+  "main": "index.js",
+  "scripts": {
+    "start": "node ./src/server.js",
+    "pretest": "eslint ./src --fix",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Josh Samuel",
+  "license": "UNLICENSED"
+}

@@ -5,7 +5,63 @@
   <link rel="stylesheet" type="text/css" href="/style.css">
   
   <script>
+    const handleResponse = async (response) => {
+      const content = document.getElementById('content');
 
+      switch(response.status)
+      {
+        case 200: //success
+        content.innerHTML = `<b>Success</b>`;
+        break;
+        case 400: //bad request
+        content.innerHTML = `<b>Bad request</b>`;
+        break;
+        case 401: //unauthorized
+        content.innerHTML = `<b>Unauthorized</b>`;
+        break;
+        case 403: //Forbidden
+        content.innerHTML = `<b>Forbidden</b>`;
+        break;
+        case 500: //internal
+        content.innerHTML = `<b>Internal</b>`;
+        break;
+        case 501: // Not Implemented
+        content.innerHTML = `<b>Not Implemented</b>`
+        break;
+        case 404: //NOt found
+        content.innerHTML = `<b>Not Found</b>`;
+        break;
+      }
+      let resObj = await response.json();
+      content.innerHTML += `<p>${resObj.message}</p>`;
+      
+    };
+
+    const sendFetch = async(url) => {
+      let response = await fetch(url);
+
+      handleResponse(response);
+    };
+
+    const init = () => {
+      const sendButton = document.querySelector("#send");
+      const select = document.querySelector('#page');
+      //const successlist = document.querySelector("#page");
+
+      const success = () => sendFetch('/success');
+      const badRequest = () => sendFetch('/badRequest');
+      const unauthorized = () => sendFetch('/unauthorized');
+      const forbidden = () => sendFetch('/forbidden');
+      const internal = () => sendFetch('/internal');
+      const notImplemented = () => sendFetch('/notImplemented');
+      const notFound = () => sendFetch('/notFound');
+
+      sendButton.addEventListener('click', () => {
+        sendFetch(select.value);
+      });
+    };
+
+    window.onload = init;
   </script>
 </head>
 <body>
